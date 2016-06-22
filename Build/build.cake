@@ -5,24 +5,10 @@
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
-var root = "../";
-var projectRoot =  MakeAbsolute(Directory(root));
-var projectName =  Argument("projectName", ((DirectoryPath)(MakeAbsolute(Directory(root)).FullPath)).GetDirectoryName());
-var solutionFile = $"../{projectName}.sln";
-var binFolder =  projectRoot + Directory($"/{projectName}/bin");
-var targetOutput = Directory(root) + Directory("../nuget-repository");
-
-if (HasArgument("targetOutput"))
-{
-    targetOutput = Directory(Argument<string>("targetOutput"));
-}
 
 //////////////////////////////////////////////////////////////////////
 // PREPARATION
 //////////////////////////////////////////////////////////////////////
-
-// Define directories.
-var buildDir = Directory(binFolder) + Directory(configuration);
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -31,14 +17,14 @@ var buildDir = Directory(binFolder) + Directory(configuration);
 Task("Clean")
     .Does(() =>
 {
-    CleanDirectory(buildDir);
+    Information("Cleaning...");
 });
 
 Task("Restore-NuGet-Packages")
     .IsDependentOn("Clean")
     .Does(() =>
 {
-    NuGetRestore(solutionFile);
+    Information("Restoring nuget packages...");
 });
 
 Task("Build")
