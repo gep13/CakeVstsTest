@@ -5,6 +5,7 @@
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
+var zipDir = Argument("zipDir","./");
 
 //////////////////////////////////////////////////////////////////////
 // PREPARATION
@@ -32,6 +33,7 @@ Task("Build")
     .Does(() =>
 {
     Information("Building Solution...");
+    Information(zipDir);
 });
 
 Task("Run-Unit-Tests")
