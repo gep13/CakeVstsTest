@@ -6,6 +6,7 @@
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 var zipDir = Argument("zipDir","./");
+var outputDirectory = Argument("OutputDirectory", "./");
 
 //////////////////////////////////////////////////////////////////////
 // PREPARATION
@@ -34,6 +35,7 @@ Task("Build")
 {
     Information("Building Solution...");
     Information(zipDir);
+    Information(outputDirectory);
 });
 
 Task("Run-Unit-Tests")
