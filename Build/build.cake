@@ -1,4 +1,5 @@
-#tool nuget:?package=NUnit.ConsoleRunner&version=3.2.1
+#tool "nuget:?package=NUnit.ConsoleRunner&version=3.2.1"
+#tool "nuget:?package=GitVersion.CommandLine"
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
@@ -11,6 +12,7 @@ var buildScriptsDirectory = Argument("BuildScriptsDirectory", "./");
 var majorVersion = Argument("MajVer", "1");
 var minorVersion = Argument("MinVer", "2");
 var patchNumber = Argument("Patch", "3");
+GitVersion versionInfo = null;
 
 //////////////////////////////////////////////////////////////////////
 // PREPARATION
@@ -50,6 +52,8 @@ Task("Run-Unit-Tests")
     .Does(() =>
 {
     Information("Running Unit Tests...");
+    
+    versionInfo = GitVersion(new GitVersionSettings{ OutputType = GitVersionOutput.Json });
 });
 
 Task("Patch-Assembly-Info")
